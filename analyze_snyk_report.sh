@@ -31,7 +31,7 @@ function download_report(){
     -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
     -H  "$cookie" \
     --data-raw "$query"\
-    --compressed > issues.csv
+    --compressed > /tmp/issues.csv
   echo "Downloading Report Done !!!" 
 }
 
@@ -46,9 +46,9 @@ function filter_log4j_vulnerabilities(){
 
 download_report
 #filter_log4j_vulnerabilities
-python3 analyze_snyk_report.py -f issues.csv
-cat log4j_vulnerabilities.csv | tr -d '"' |  tr -d '[' | tr -d ']'> log4j_issues.csv
-rm -fr issues.csv log4j_vulnerabilities.csv
+python3 analyze_snyk_report.py -f /tmp/issues.csv
+cat /tmp/log4j_vulnerabilities.csv | tr -d '"' |  tr -d '[' | tr -d ']' | rev | cut -c9- | rev > log4j_issues.csv
+
 
 
 

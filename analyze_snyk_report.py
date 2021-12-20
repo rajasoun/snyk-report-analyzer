@@ -9,7 +9,7 @@ parser.add_argument("-f", "--Input", help = "Path to snyk report file")
 args = parser.parse_args()
 
 if args.Input:
-    report_file="log4j_vulnerabilities.csv"
+    report_file="/tmp/log4j_vulnerabilities.csv"
     print("Analyzing snyk Report")
     csv_file = args.Input
     data = pd.read_csv(csv_file)
