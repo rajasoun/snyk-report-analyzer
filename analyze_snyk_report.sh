@@ -49,6 +49,7 @@ function filter_log4j_vulnerabilities(){
 download_report "www" "cisco-lcande-pilot-ghe"
 download_report "wwwin" "cisco-lce-pilot"
 cat /tmp/issues-www.csv <(echo) <(tail +2 /tmp/issues-wwwin.csv) > /tmp/issues.csv
+echo -e "Merging Reports Done !!!"
 
 #filter_log4j_vulnerabilities
 python3 analyze_snyk_report.py -f /tmp/issues.csv
