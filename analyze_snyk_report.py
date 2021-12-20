@@ -14,7 +14,7 @@ if args.Input:
     csv_file = args.Input
     data = pd.read_csv(csv_file)
     headers = ['issue.package','issue.version','issue.identifiers.CVE','issue.severity','project.name']
-    data.drop(data.columns.difference(headers), 1, inplace=True)
+    data = data[headers]
     
     cve_values = ['["CVE-2021-4104"]','["CVE-2017-5645"]','["CVE-2020-9488"]','["CVE-2019-17571"]','["CVE-2021-44228"]','["CVE-2021-45046"]']
     data = data[data['issue.identifiers.CVE'].isin(cve_values)]
