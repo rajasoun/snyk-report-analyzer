@@ -45,8 +45,12 @@ function filter_log4j_vulnerabilities(){
 }
 
 download_report
-filter_log4j_vulnerabilities
+#filter_log4j_vulnerabilities
 python3 analyze_snyk_report.py -f issues.csv
+cat log4j_vulnerabilities.csv | tr -d '"' |  tr -d '[' | tr -d ']'> log4j_issues.csv
+rm -fr issues.csv log4j_vulnerabilities.csv
+
+
 
 
 
