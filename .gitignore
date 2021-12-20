@@ -1,4 +1,4 @@
 *.csv
-cookie.txt
-query.txt
+cookie-*.txt
+query-*.txt
 
