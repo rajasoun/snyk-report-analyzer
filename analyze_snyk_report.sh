@@ -38,12 +38,12 @@ function download_report(){
 }
 
 function filter_log4j_vulnerabilities(){
-  csv_file="issues.csv"
+  csv_file="/tmp/issues.csv"
   log4j_cve="CVE-2021-4104|CVE-2017-5645|CVE-2020-9488|CVE-2019-17571|CVE-2021-44228|CVE-2021-45046|CVE-2021-45046"
   headers="$(cat  $csv_file | head -1)"
   vuln_repos="$(grep -E $log4j_cve $csv_file)"
-  echo "$headers" > log4j_issues.csv
-  echo "$vuln_repos" >> log4j_issues.csv
+  echo "$headers" > /tmp/log4j_issues.csv
+  echo "$vuln_repos" >> /tmp/log4j_issues.csv
 }
 
 download_report "www" "cisco-lcande-pilot-ghe"
@@ -51,7 +51,7 @@ download_report "wwwin" "cisco-lce-pilot"
 cat /tmp/issues-www.csv <(echo) <(tail +2 /tmp/issues-wwwin.csv) > /tmp/issues.csv
 echo -e "Merging Reports Done !!!"
 
-#filter_log4j_vulnerabilities
+filter_log4j_vulnerabilities
 python3 analyze_snyk_report.py -f /tmp/issues.csv
 cat /tmp/log4j_vulnerabilities.csv | tr -d '"' |  tr -d '[' | tr -d ']' | rev | cut -c9- | rev > log4j_issues.csv
 
