@@ -51,7 +51,7 @@ download_report "wwwin" "cisco-lce-pilot"
 cat /tmp/issues-www.csv <(echo) <(tail +2 /tmp/issues-wwwin.csv) > /tmp/issues.csv
 echo -e "Merging Reports Done !!!"
 
-filter_log4j_vulnerabilities
+#filter_log4j_vulnerabilities
 python3 analyze_snyk_report.py -f /tmp/issues.csv
 cat /tmp/log4j_vulnerabilities.csv | tr -d '"' |  tr -d '[' | tr -d ']' | rev | cut -c9- | rev > log4j_issues.csv
 
